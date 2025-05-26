@@ -190,7 +190,7 @@
     let currentIndex = 0;
 
     function showNextCat() {
-      catBackground.style.backgroundImage = url(${catGifs[currentIndex]});
+      catBackground.style.backgroundImage = `url(${catGifs[currentIndex]})`;
       currentIndex = (currentIndex + 1) % catGifs.length;
     }
 
@@ -269,3 +269,8 @@
       bounceText.style.top = y + "px";
       requestAnimationFrame(moveText);
     }
+
+    moveText();
+  </script>
+</body>
+</html>
