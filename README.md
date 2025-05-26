@@ -16,20 +16,6 @@
       z-index: 0;
     }
 
-    /* Fullscreen cat gif background slideshow */
-    #catBackground {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      filter: brightness(0.7);
-    }
-
     /* Questionnaire background behind yes/no buttons */
     .questionnaire-bg {
       position: absolute;
@@ -69,15 +55,17 @@
       z-index: 6;
     }
 
-    /* Hide default buttons */
+    /* Style buttons: bigger & transparent */
     button {
       border: none;
       background: none;
+      background-color: transparent;
+      box-shadow: none;
       cursor: pointer;
       position: absolute;
       transition: transform 0.3s ease;
-      width: 120px;
-      height: 60px;
+      width: 180px;
+      height: 90px;
       padding: 0;
     }
 
@@ -88,6 +76,7 @@
       object-fit: contain;
       pointer-events: none;
       user-select: none;
+      background-color: transparent;
     }
 
     .yes {
@@ -149,17 +138,13 @@
       justify-content: center;
       align-items: center;
       z-index: 100;
+      display: none;
       user-select: none;
       text-shadow: 1px 1px 2px white;
-      display: none;
     }
   </style>
 </head>
 <body>
-
-  <!-- Fullscreen cat gif background slideshow -->
-  <div id="catBackground"></div>
-
   <div class="card" id="card">
     <h1>heylol,</h1>
     <p>we should like be together unplatonically..</p>
@@ -178,7 +163,7 @@
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/IHQ3OhddNhw?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
   <!-- Overlay that replaces the red wall -->
@@ -186,33 +171,20 @@
 
   <script>
     const catGifs = [
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjFlc2hjdnR1MzRncHd5aW1ueG1lczdqbWJjdTl1Nzh1aHN4c3hyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xI1pK446iNJeg/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXdqY3k4bTh4aDFza2JyMzB0ZW0wZTJ0NXoyd3JvMmlhNm5sMDVyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GxN4ics7OlvsA/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWk1cnY3MGNjcHhjNmhzaWgzMDRuN2drbGZoenh1Z2J6NDluMDZqZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NimEavznszKtW/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVndXI3M2ttbTVzaTkxbzRzYXA0NTFxM3dia2ExdG1scnBoeXNrZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NfzERYyiWcXU4/giphy.gif",
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3QzdTE0b3E1bnoydzFremdkM3JlYnFjaWhnMDh1YmVqajltOGJjOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/12bjQ7uASAaCKk/giphy.gif",
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDl1NHA0a2tiOTF1aGY3YmMyZWFuY29mdjdxYjhra3Z0d2wycnV4diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dRcMsUUrnR8He/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdnOGV1NzNtZW9xcXFwcHR5MWd6cDdnb25ha2g3Nmk1YTJpNG1ldyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bJJJODH3T9Fug/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFrOTQ0dnozMTJma2Z2eHBjOXk5azc0bDd3bmJpbGM5MDhpMjQ0eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pV0RpkmUZ5UB2/giphy.gif",
-      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3gyZnptaW1lM24yaTN6NGw4czJ6eWJjOHl6cWY4NDdvMDFsajJobiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/amCh2vTHXpQyI/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXhhM3M1YXpxY3hoMm4ybXdxMWhmMHhoZ295ZGp0dGhsNnZvYjhqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Rgcvb54ffxAc/giphy.gif"
+      "https://media2.giphy.com/media/xI1pK446iNJeg/giphy.gif",
+      "https://media4.giphy.com/media/GxN4ics7OlvsA/giphy.gif",
+      "https://media4.giphy.com/media/NimEavznszKtW/giphy.gif",
+      "https://media2.giphy.com/media/NfzERYyiWcXU4/giphy.gif",
+      "https://media1.giphy.com/media/12bjQ7uASAaCKk/giphy.gif",
+      "https://media1.giphy.com/media/dRcMsUUrnR8He/giphy.gif",
+      "https://media2.giphy.com/media/bJJJODH3T9Fug/giphy.gif",
+      "https://media4.giphy.com/media/pV0RpkmUZ5UB2/giphy.gif",
+      "https://media3.giphy.com/media/amCh2vTHXpQyI/giphy.gif",
+      "https://media2.giphy.com/media/13Rgcvb54ffxAc/giphy.gif"
     ];
 
-    // Fullscreen cat background slideshow variables
-    const catBackground = document.getElementById('catBackground');
-    let currentIndex = 0;
-
-    function showNextCat() {
-      catBackground.style.backgroundImage = `url(${catGifs[currentIndex]})`;
-      currentIndex = (currentIndex + 1) % catGifs.length;
-    }
-
-    // Start slideshow
-    showNextCat();
-    setInterval(showNextCat, 5000); // Change every 5 seconds
-
-    // Create floating small cats on screen with meow sound on click
-    const meowAudio = new Audio('https://www.soundjay.com/animal/cat-meow-1.mp3');
+    // Cat meow audio from Pixabay (direct mp3 link)
+    const meowAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_58b7f866a0.mp3?filename=cat-meow-14536.mp3");
 
     catGifs.forEach((url) => {
       const cat = document.createElement("img");
@@ -233,7 +205,6 @@
       document.body.appendChild(cat);
     });
 
-    // No button logic
     const noBtn = document.getElementById('noBtn');
     const redOverlay = document.getElementById('redOverlay');
     const noMessages = [
@@ -262,21 +233,18 @@
 
       noBtn.style.transform = `translate(${newX - noBtn.offsetLeft}px, ${newY - noBtn.offsetTop}px)`;
 
-      // Show message immediately, with shake animation
       const message = noMessages[clickCount % noMessages.length];
       redOverlay.textContent = message;
       redOverlay.style.display = 'flex';
       redOverlay.style.animation = 'shake 0.5s';
 
-      // Remove animation on end so it can be retriggered next time
       redOverlay.addEventListener('animationend', () => {
         redOverlay.style.animation = '';
       }, { once: true });
 
-      // Hide message after 5 seconds
       setTimeout(() => {
         redOverlay.style.display = 'none';
-      }, 5000);
+      }, 500);  // shorter so message and animation sync better
 
       clickCount++;
     });
