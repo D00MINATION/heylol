@@ -70,34 +70,36 @@
       position: relative;
       z-index: 5;
     }
-.buttons {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  z-index: 6;
-}
 
-button {
-  font-family: 'Old Newspaper Types', serif;
-  font-size: 1.5em;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  position: relative;
-}
+    .buttons {
+      margin-top: 30px;
+      position: relative;
+      height: 100px;
+      z-index: 6;
+    }
 
-.yes {
-  background-color: #32cd32;
-  color: white;
-}
+    button {
+      font-family: 'Old Newspaper Types', serif;
+      font-size: 1.5em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      transition: transform 0.3s ease;
+    }
 
-.no {
-  background-color: #dc143c;
-  color: white;
-}
+    .yes {
+      background-color: #32cd32;
+      color: white;
+      left: 25%;
+    }
+
+    .no {
+      background-color: #dc143c;
+      color: white;
+      left: 55%;
     }
 
     #videoContainer {
@@ -188,7 +190,7 @@ button {
     let currentIndex = 0;
 
     function showNextCat() {
-      catBackground.style.backgroundImage = `url(${catGifs[currentIndex]})`;
+      catBackground.style.backgroundImage = url(${catGifs[currentIndex]});
       currentIndex = (currentIndex + 1) % catGifs.length;
     }
 
@@ -267,8 +269,3 @@ button {
       bounceText.style.top = y + "px";
       requestAnimationFrame(moveText);
     }
-
-    moveText();
-  </script>
-</body>
-</html>
