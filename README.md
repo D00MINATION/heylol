@@ -43,21 +43,23 @@
       cursor: pointer;
       position: absolute;
       transition: transform 0.3s ease;
+      user-select: none;
     }
 
     .yes {
       background-color: #ff69b4;
       color: white;
       left: 30%;
+      z-index: 10;
     }
 
     .no {
       background-color: #ccc;
       left: 60%;
+      z-index: 10;
     }
 
-    /* New Glass Shatter Styles */
-
+    /* Glass Shatter Styles */
     .glass-shatter-container {
       position: fixed;
       top: 0; left: 0;
@@ -97,11 +99,14 @@
       border: none;
     }
 
+    /* Floating Cat GIFs */
     .cat {
       position: fixed;
       width: 80px;
       animation: float 5s infinite ease-in-out;
       z-index: 1;
+      user-select: none;
+      pointer-events: none;
     }
 
     @keyframes float {
@@ -128,17 +133,10 @@
   <!-- Floating Cat GIFs -->
   <script>
     const catGifs = [
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjFlc2hjdnR1MzRncHd5aW1ueG1lczdqbWJjdTl1Nzh1aHN4c3hyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xI1pK446iNJeg/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXdqY3k4bTh4aDFza2JyMzB0ZW0wZTJ0NXoyd3JvMmlhNm5sMDVyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GxN4ics7OlvsA/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWk1cnY3MGNjcHhjNmhzaWgzMDRuN2drbGZoenh1Z2J6NDluMDZqZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NimEavznszKtW/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVndXI3M2ttbTVzaTkxbzRzYXA0NTFxM3dia2ExdG1scnBoeXNrZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NfzERYyiWcXU4/giphy.gif",
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3QzdTE0b3E1bnoydzFremdkM3JlYnFjaWhnMDh1YmVqajltOGJjOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/12bjQ7uASAaCKk/giphy.gif",
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDl1NHA0a2tiOTF1aGY3YmMyZWFuY29mdjdxYjhra3Z0d2wycnV4diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dRcMsUUrnR8He/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdnOGV1NzNtZW9xcXFwcHR5MWd6cDdnb25ha2g3Nmk1YTJpNG1ldyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bJJJODH3T9Fug/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFrOTQ0dnozMTJma2Z2eHBjOXk5azc0bDd3bmJpbGM5MDhpMjQ0eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pV0RpkmUZ5UB2/giphy.gif",
-      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3gyZnptaW1lM24yaTN6NGw4czJ6eWJjOHl6cWY4NDdvMDFsajJobiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/amCh2vTHXpQyI/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXhhM3M1YXpxY3hoMm4ybXdxMWhmMHhoZ295ZGp0dGhsNnZvYjhqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Rgcvb54ffxAc/giphy.gif"
-      
+      "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
+      "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+      "https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif",
+      "https://media.giphy.com/media/l1J9urFG4lFQK0pTO/giphy.gif"
     ];
 
     for (let i = 0; i < 5; i++) {
@@ -172,7 +170,7 @@
     ];
     let clickCount = 0;
 
-    noBtn.addEventListener('mouseover', () => {
+    noBtn.addEventListener('mouseenter', () => {
       const offsetX = Math.random() * 300 - 150;
       const offsetY = Math.random() * 100 - 50;
       noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
