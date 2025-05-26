@@ -10,7 +10,6 @@
       color: white;
       text-align: center;
       overflow: hidden;
-      position: relative;
     }
 
     .card {
@@ -73,7 +72,7 @@
 
     .cat {
       position: fixed;
-      width: 112px; /* 80px + 40% */
+      width: 112px; /* 80px * 1.4 (40% increase) */
       animation: float 5s infinite ease-in-out;
       z-index: 1;
     }
@@ -84,8 +83,7 @@
       100% { transform: translateY(0) rotate(0deg); }
     }
 
-    /* Red Wall overlay for "no" clicks */
-    #redWall {
+    #redScreen {
       display: none;
       position: fixed;
       top: 0; left: 0;
@@ -93,13 +91,11 @@
       height: 100vh;
       background-color: red;
       color: black;
-      font-size: 3em;
-      font-weight: bold;
+      font-size: 2em;
       display: flex;
-      justify-content: center;
       align-items: center;
-      z-index: 200;
-      user-select: none;
+      justify-content: center;
+      z-index: 1000;
     }
   </style>
 </head>
@@ -117,7 +113,7 @@
     <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <div id="redWall">NOOOOOOOO 😠</div>
+  <div id="redScreen">rude..</div>
 
   <!-- Floating Cat GIFs -->
   <script>
@@ -134,9 +130,9 @@
       "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXhhM3M1YXpxY3hoMm4ybXdxMWhmMHhoZ295ZGp0dGhsNnZvYjhqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Rgcvb54ffxAc/giphy.gif"
     ];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < catGifs.length; i++) {
       const cat = document.createElement("img");
-      cat.src = catGifs[i % catGifs.length];
+      cat.src = catGifs[i];
       cat.className = "cat";
 
       const posX = Math.random() * window.innerWidth;
@@ -151,7 +147,7 @@
 
   <script>
     const noBtn = document.getElementById('noBtn');
-    const redWall = document.getElementById('redWall');
+    const redScreen = document.getElementById('redScreen');
     const noMessages = [
       "ur not supposed to pick this one",
       "NUHUH PRESS YES",
@@ -173,20 +169,16 @@
     });
 
     noBtn.addEventListener('click', () => {
-      alert(noMessages[clickCount % noMessages.length]);
-      clickCount++;
-
-      // Show red wall overlay
-      redWall.style.display = 'flex';
-
-      // Hide red wall after 1.5 seconds
+      const msg = noMessages[clickCount % noMessages.length];
+      redScreen.innerText = msg;
+      redScreen.style.display = 'flex';
       setTimeout(() => {
-        redWall.style.display = 'none';
-      }, 1500);
+        redScreen.style.display = 'none';
+      }, 5000);
+      clickCount++;
     });
 
     function yesClicked() {
-      // Just hide card and show video - no glass shatter effect
       document.getElementById('card').style.display = 'none';
       document.getElementById('videoContainer').style.display = 'block';
     }
