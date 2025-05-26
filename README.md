@@ -2,10 +2,11 @@
 <html>
 <head>
   <title>heylol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Old+Newspaper+Types&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Comic Sans MS', cursive;
+      font-family: 'Old Newspaper Types', serif;
       background: black;
       color: white;
       text-align: center;
@@ -14,6 +15,23 @@
       height: 100vh;
       width: 100vw;
       z-index: 0;
+    }
+
+    /* Rainbow animation */
+    @keyframes rainbow {
+      0% { color: red; }
+      14% { color: orange; }
+      28% { color: yellow; }
+      42% { color: green; }
+      57% { color: blue; }
+      71% { color: indigo; }
+      85% { color: violet; }
+      100% { color: red; }
+    }
+
+    h1 {
+      font-size: 2.5em;
+      animation: rainbow 5s infinite;
     }
 
     /* Fullscreen cat gif background slideshow */
@@ -30,13 +48,12 @@
       filter: brightness(0.7);
     }
 
-    /* Questionnaire background behind yes/no buttons */
     .questionnaire-bg {
       position: absolute;
-      top: 110px; /* aligned under card header */
+      top: 110px;
       left: 0;
       right: 0;
-      height: 180px; /* roughly the height behind buttons */
+      height: 180px;
       background: url('https://dl.dropboxusercontent.com/s/me8s6ds3k6ouixylctwv6/WhatsApp-Image-2025-05-07-at-23.29.15_aa5cb6f4.jpg?dl=0') no-repeat center center;
       background-size: cover;
       z-index: 4;
@@ -57,11 +74,6 @@
       z-index: 5;
     }
 
-    h1 {
-      font-size: 2.5em;
-      color: #ff69b4;
-    }
-
     .buttons {
       margin-top: 30px;
       position: relative;
@@ -69,35 +81,28 @@
       z-index: 6;
     }
 
-    /* Hide default buttons */
     button {
+      font-family: 'Old Newspaper Types', serif;
+      font-size: 1.5em;
+      padding: 15px 30px;
       border: none;
-      background: none;
+      border-radius: 10px;
       cursor: pointer;
       position: absolute;
+      top: 20px;
       transition: transform 0.3s ease;
-      width: 150px; /* bigger */
-      height: 75px; /* bigger */
-      padding: 0;
-    }
-
-    /* Use images inside buttons */
-    button img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      pointer-events: none;
-      user-select: none;
     }
 
     .yes {
-      left: 30%;
-      top: 20px;
+      background-color: #32cd32; /* green */
+      color: white;
+      left: 25%;
     }
 
     .no {
-      left: 60%;
-      top: 20px;
+      background-color: #dc143c; /* red */
+      color: white;
+      left: 55%;
     }
 
     #videoContainer {
@@ -116,7 +121,7 @@
 
     .cat {
       position: fixed;
-      width: 112px; /* 80 * 1.4 = 112 */
+      width: 112px;
       animation: float 5s infinite ease-in-out;
       z-index: 1;
       cursor: pointer;
@@ -128,16 +133,6 @@
       100% { transform: translateY(0) rotate(0deg); }
     }
 
-    /* Shake animation */
-    @keyframes shake {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      20% { transform: translate(-10px, 5px) rotate(-5deg); }
-      40% { transform: translate(10px, -5px) rotate(5deg); }
-      60% { transform: translate(-10px, 5px) rotate(-5deg); }
-      80% { transform: translate(10px, -5px) rotate(5deg); }
-    }
-
-    /* Red overlay with background image and message */
     .red-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -157,28 +152,22 @@
       padding: 20px;
       text-align: center;
       font-weight: bold;
+      font-family: 'Old Newspaper Types', serif;
     }
   </style>
 </head>
 <body>
 
-  <!-- Fullscreen cat gif background slideshow -->
   <div id="catBackground"></div>
 
   <div class="card" id="card">
-    <h1>heylol,</h1>
-    <p>we should like be together unplatonically..</p>
-    
-    <!-- Questionnaire background behind buttons -->
+    <h1>heylol, we should like be together unplatonically..</h1>
+
     <div class="questionnaire-bg"></div>
 
     <div class="buttons">
-      <button class="yes" onclick="yesClicked()">
-        <img src="https://i.ibb.co/mFFxfTmQ/yes.png" alt="Yes Button"/>
-      </button>
-      <button class="no" id="noBtn">
-        <img src="https://i.ibb.co/KjZKLkyg/no.png" alt="No Button"/>
-      </button>
+      <button class="yes" onclick="yesClicked()">YES</button>
+      <button class="no" id="noBtn">NO</button>
     </div>
   </div>
 
@@ -186,24 +175,22 @@
     <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <!-- Red overlay that appears on No click -->
   <div class="red-overlay" id="redOverlay"></div>
 
   <script>
     const catGifs = [
       "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjFlc2hjdnR1MzRncHd5aW1ueG1lczdqbWJjdTl1Nzh1aHN4c3hyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xI1pK446iNJeg/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXdqY3k4bTh4aDFza2JyMzB0ZW0wZTJ0NXoyd3JvMmlhNm5sMDVyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GxN4ics7OlvsA/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWk1cnY3MGNjcHhjNmhzaWgzMDRuN2drbGZoenh1Z2J6NDluMDZqZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NimEavznszKtW/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVndXI3M2ttbTVzaTkxbzRzYXA0NTFxM3dia2ExdG1scnBoeXNrZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NfzERYyiWcXU4/giphy.gif",
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3QzdTE0b3E1bnoydzFremdkM3JlYnFjaWhnMDh1YmVqajltOGJjOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/12bjQ7uASAaCKk/giphy.gif",
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDl1NHA0a2tiOTF1aGY3YmMyZWFuY29mdjdxYjhra3Z0d2wycnV4diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dRcMsUUrnR8He/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdnOGV1NzNtZW9xcXFwcHR5MWd6cDdnb25ha2g3Nmk1YTJpNG1ldyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bJJJODH3T9Fug/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFrOTQ0dnozMTJma2Z2eHBjOXk5azc0bDd3bmJpbGM5MDhpMjQ0eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pV0RpkmUZ5UB2/giphy.gif",
-      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3gyZnptaW1lM24yaTN6NGw4czJ6eWJjOHl6cWY4NDdvMDFsajJobiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/amCh2vTHXpQyI/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXhhM3M1YXpxY3hoMm4ybXdxMWhmMHhoZ295ZGp0dGhsNnZvYjhqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Rgcvb54ffxAc/giphy.gif"
+      "https://media4.giphy.com/media/GxN4ics7OlvsA/giphy.gif",
+      "https://media4.giphy.com/media/NimEavznszKtW/giphy.gif",
+      "https://media2.giphy.com/media/NfzERYyiWcXU4/giphy.gif",
+      "https://media1.giphy.com/media/12bjQ7uASAaCKk/giphy.gif",
+      "https://media1.giphy.com/media/dRcMsUUrnR8He/giphy.gif",
+      "https://media2.giphy.com/media/bJJJODH3T9Fug/giphy.gif",
+      "https://media4.giphy.com/media/pV0RpkmUZ5UB2/giphy.gif",
+      "https://media3.giphy.com/media/amCh2vTHXpQyI/giphy.gif",
+      "https://media2.giphy.com/media/13Rgcvb54ffxAc/giphy.gif"
     ];
 
-    // Fullscreen cat background slideshow variables
     const catBackground = document.getElementById('catBackground');
     let currentIndex = 0;
 
@@ -212,11 +199,9 @@
       currentIndex = (currentIndex + 1) % catGifs.length;
     }
 
-    // Start slideshow
     showNextCat();
-    setInterval(showNextCat, 5000); // Change every 5 seconds
+    setInterval(showNextCat, 5000);
 
-    // Create floating small cats on screen with meow sound on click
     const meowAudio = new Audio('https://www.soundjay.com/animal/cat-meow-1.mp3');
 
     catGifs.forEach((url) => {
@@ -238,7 +223,6 @@
       document.body.appendChild(cat);
     });
 
-    // No button logic
     const noBtn = document.getElementById('noBtn');
     const redOverlay = document.getElementById('redOverlay');
     const noMessages = [
@@ -255,14 +239,9 @@
     ];
 
     noBtn.addEventListener('click', () => {
-      // Show overlay with image and random red message
-      const randomIndex = Math.floor(Math.random() * noMessages.length);
-      const message = noMessages[randomIndex];
-
+      const message = noMessages[Math.floor(Math.random() * noMessages.length)];
       redOverlay.textContent = message;
       redOverlay.style.display = 'flex';
-
-      // Remove overlay after 5 seconds
       setTimeout(() => {
         redOverlay.style.display = 'none';
       }, 5000);
