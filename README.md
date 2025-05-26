@@ -10,21 +10,26 @@
       color: white;
       text-align: center;
       overflow: hidden;
+      position: relative;
+      height: 100vh;
+      width: 100vw;
     }
 
-    /* Background image behind the card */
-    body::before {
-      content: "";
+    /* YouTube video as background - muted and under everything */
+    #bgVideo {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
-      background-size: cover;
-      opacity: 0.2;
-      z-index: 0;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+      pointer-events: none;
     }
 
+    /* Background image behind the card (questionnaire background) */
     .card {
-      background: rgba(26, 26, 26, 0.85);
+      background: url('https://www.dropbox.com/scl/fi/me8s6ds3k6ouixylctwv6/WhatsApp-Image-2025-05-07-at-23.29.15_aa5cb6f4.jpg?rlkey=b97rvsyyhuuefy1foyzqmgsqo&st=77mi0qe4&dl=1') no-repeat center center;
+      background-size: cover;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
       padding: 40px;
@@ -32,11 +37,13 @@
       margin: 100px auto;
       position: relative;
       z-index: 5;
+      color: white;
     }
 
     h1 {
       font-size: 2.5em;
       color: #ff69b4;
+      margin-bottom: 0.2em;
     }
 
     .buttons {
@@ -113,11 +120,13 @@
       80% { transform: translate(10px, -5px) rotate(5deg); }
     }
 
+    /* Red overlay replaced with image background for "no" responses */
     .red-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background-color: red;
+      background: url('https://www.dropbox.com/scl/fi/dq43zxv8nd35mu0d2ayie/ja.jpg?rlkey=kb0r3edgs8mospwye8379a9tw&st=hnzaejr2&dl=1') no-repeat center center;
+      background-size: cover;
       color: black;
       font-size: 2em;
       display: flex;
@@ -126,10 +135,18 @@
       z-index: 100;
       display: none;
       user-select: none;
+      animation-fill-mode: forwards;
     }
   </style>
 </head>
 <body>
+
+  <!-- YouTube video as muted background -->
+  <video id="bgVideo" autoplay muted loop playsinline>
+    <source src="https://www.youtube.com/embed/IHQ3OhddNhw" type="video/mp4" />
+    <!-- Fallback or invalid source note: YouTube videos don't work as direct video sources -->
+  </video>
+
   <div class="card" id="card">
     <h1>heylol,</h1>
     <p>we should like be together unplatonically..</p>
@@ -144,10 +161,10 @@
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/IHQ3OhddNhw?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <!-- Red overlay div -->
+  <!-- Red overlay div (with image background now) -->
   <div class="red-overlay" id="redOverlay">rude..</div>
 
   <script>
@@ -216,13 +233,12 @@
 
       noBtn.style.transform = `translate(${newX - noBtn.offsetLeft}px, ${newY - noBtn.offsetTop}px)`;
 
-      // Show red overlay with message & shake
+      // Show overlay with message & shake
       const message = noMessages[clickCount % noMessages.length];
       redOverlay.textContent = message;
       redOverlay.style.display = 'flex';
       redOverlay.style.animation = 'shake 0.5s';
 
-      // Remove shake animation after done so it can be replayed later
       redOverlay.addEventListener('animationend', () => {
         redOverlay.style.animation = '';
       }, { once: true });
