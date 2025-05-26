@@ -72,7 +72,7 @@
 
     .cat {
       position: fixed;
-      width: 112px; /* 80px * 1.4 (40% increase) */
+      width: 112px; /* 80 * 1.4 = 112 */
       animation: float 5s infinite ease-in-out;
       z-index: 1;
     }
@@ -83,19 +83,18 @@
       100% { transform: translateY(0) rotate(0deg); }
     }
 
-    #redScreen {
-      display: none;
+    .red-overlay {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100vw; height: 100vh;
       background-color: red;
       color: black;
       font-size: 2em;
       display: flex;
-      align-items: center;
       justify-content: center;
-      z-index: 1000;
+      align-items: center;
+      z-index: 100;
+      display: none;
     }
   </style>
 </head>
@@ -113,7 +112,8 @@
     <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <div id="redScreen">rude..</div>
+  <!-- Red overlay div -->
+  <div class="red-overlay" id="redOverlay">rude..</div>
 
   <!-- Floating Cat GIFs -->
   <script>
@@ -130,9 +130,9 @@
       "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXhhM3M1YXpxY3hoMm4ybXdxMWhmMHhoZ295ZGp0dGhsNnZvYjhqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Rgcvb54ffxAc/giphy.gif"
     ];
 
-    for (let i = 0; i < catGifs.length; i++) {
+    catGifs.forEach((url) => {
       const cat = document.createElement("img");
-      cat.src = catGifs[i];
+      cat.src = url;
       cat.className = "cat";
 
       const posX = Math.random() * window.innerWidth;
@@ -142,12 +142,12 @@
       cat.style.top = posY + "px";
 
       document.body.appendChild(cat);
-    }
+    });
   </script>
 
   <script>
     const noBtn = document.getElementById('noBtn');
-    const redScreen = document.getElementById('redScreen');
+    const redOverlay = document.getElementById('redOverlay');
     const noMessages = [
       "ur not supposed to pick this one",
       "NUHUH PRESS YES",
@@ -169,12 +169,14 @@
     });
 
     noBtn.addEventListener('click', () => {
-      const msg = noMessages[clickCount % noMessages.length];
-      redScreen.innerText = msg;
-      redScreen.style.display = 'flex';
+      const message = noMessages[clickCount % noMessages.length];
+      redOverlay.textContent = message;
+      redOverlay.style.display = 'flex';
+
       setTimeout(() => {
-        redScreen.style.display = 'none';
+        redOverlay.style.display = 'none';
       }, 5000);
+
       clickCount++;
     });
 
