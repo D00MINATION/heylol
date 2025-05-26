@@ -172,7 +172,10 @@
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://www.dropbox.com/scl/fi/r68w4rarovot2s0vd9yv5/somedays.mp4?rlkey=0l6hmefnsvg1j5dwbzbd3sm8h&st=7181acqr&dl=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <video id="romanticVideo" autoplay controls style="width: 100%; height: 100%;">
+  <source src="https://www.dl.dropboxusercontent.com/scl/fi/r68w4rarovot2s0vd9yv5/somedays.mp4?rlkey=0l6hmefnsvg1j5dwbzbd3sm8h&st=7181acqr&raw=1" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
   </div>
 
   <div class="red-overlay" id="redOverlay"></div>
@@ -202,7 +205,7 @@
     showNextCat();
     setInterval(showNextCat, 5000);
 
-    const meowAudio = new Audio('https://www.dropbox.com/scl/fi/elhkh3jlikp2vsixi634n/cat-meow-14536.mp3?rlkey=ig1qswq3zr3y4sot9z71u7rlq&st=xn3swuv7&dl=0');
+    const meowAudio = new Audio('https://www.dl.dropboxusercontent.com/scl/fi/elhkh3jlikp2vsixi634n/cat-meow-14536.mp3?rlkey=ig1qswq3zr3y4sot9z71u7rlq&raw=1');
 
     catGifs.forEach((url) => {
       const cat = document.createElement("img");
