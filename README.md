@@ -6,30 +6,48 @@
     body {
       margin: 0;
       font-family: 'Comic Sans MS', cursive;
-      background-color: black;
+      background: black;
       color: white;
       text-align: center;
       overflow: hidden;
       position: relative;
       height: 100vh;
       width: 100vw;
+      z-index: 0;
     }
 
-    /* YouTube video as background - muted and under everything */
-    #bgVideo {
+    /* Fullscreen cat gif background slideshow */
+    #catBackground {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
       height: 100vh;
-      object-fit: cover;
-      z-index: -2;
+      z-index: 0;
       pointer-events: none;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      filter: brightness(0.7);
     }
 
-    /* Background image behind the card (questionnaire background) */
-    .card {
-      background: url('https://www.dropbox.com/scl/fi/me8s6ds3k6ouixylctwv6/WhatsApp-Image-2025-05-07-at-23.29.15_aa5cb6f4.jpg?rlkey=b97rvsyyhuuefy1foyzqmgsqo&st=77mi0qe4&dl=1') no-repeat center center;
+    /* Questionnaire background behind yes/no buttons */
+    .questionnaire-bg {
+      position: absolute;
+      top: 110px; /* aligned under card header */
+      left: 0;
+      right: 0;
+      height: 180px; /* roughly the height behind buttons */
+      background: url('https://dl.dropboxusercontent.com/s/me8s6ds3k6ouixylctwv6/WhatsApp-Image-2025-05-07-at-23.29.15_aa5cb6f4.jpg?dl=0') no-repeat center center;
       background-size: cover;
+      z-index: 4;
+      filter: brightness(0.75);
+      border-radius: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(26, 26, 26, 0.85);
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
       padding: 40px;
@@ -37,19 +55,18 @@
       margin: 100px auto;
       position: relative;
       z-index: 5;
-      color: white;
     }
 
     h1 {
       font-size: 2.5em;
       color: #ff69b4;
-      margin-bottom: 0.2em;
     }
 
     .buttons {
       margin-top: 30px;
       position: relative;
       height: 100px;
+      z-index: 6;
     }
 
     /* Hide default buttons */
@@ -91,7 +108,7 @@
       z-index: 20;
     }
 
-    iframe {
+    #videoContainer iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -120,12 +137,11 @@
       80% { transform: translate(10px, -5px) rotate(5deg); }
     }
 
-    /* Red overlay replaced with image background for "no" responses */
     .red-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background: url('https://www.dropbox.com/scl/fi/dq43zxv8nd35mu0d2ayie/ja.jpg?rlkey=kb0r3edgs8mospwye8379a9tw&st=hnzaejr2&dl=1') no-repeat center center;
+      background: url('https://dl.dropboxusercontent.com/s/dq43zxv8nd35mu0d2ayie/ja.jpg?dl=0') no-repeat center center;
       background-size: cover;
       color: black;
       font-size: 2em;
@@ -133,38 +149,39 @@
       justify-content: center;
       align-items: center;
       z-index: 100;
-      display: none;
       user-select: none;
-      animation-fill-mode: forwards;
+      text-shadow: 1px 1px 2px white;
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- YouTube video as muted background -->
-  <video id="bgVideo" autoplay muted loop playsinline>
-    <source src="https://www.youtube.com/embed/IHQ3OhddNhw" type="video/mp4" />
-    <!-- Fallback or invalid source note: YouTube videos don't work as direct video sources -->
-  </video>
+  <!-- Fullscreen cat gif background slideshow -->
+  <div id="catBackground"></div>
 
   <div class="card" id="card">
     <h1>heylol,</h1>
     <p>we should like be together unplatonically..</p>
+    
+    <!-- Questionnaire background behind buttons -->
+    <div class="questionnaire-bg"></div>
+
     <div class="buttons">
       <button class="yes" onclick="yesClicked()">
-        <img src="https://i.imgur.com/1JQZPvm.png" alt="Yes Button"/>
+        <img src="https://www.dropbox.com/scl/fi/e02jjrs99hczwqe6y0ztp/yes.png?rlkey=drwjuaxhzppjiw4pr31zw3ob8&st=fvzqqes9&dl=1" alt="Yes Button"/>
       </button>
       <button class="no" id="noBtn">
-        <img src="https://i.imgur.com/k5vH0n9.png" alt="No Button"/>
+        <img src="https://www.dropbox.com/scl/fi/uko3m164r6uwzic8w5h2y/no.png?rlkey=w4q01c1czp3v2ifi07q6qsfx3&st=0h41kaeb&dl=1" alt="No Button"/>
       </button>
     </div>
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://www.youtube.com/embed/IHQ3OhddNhw?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <!-- Red overlay div (with image background now) -->
+  <!-- Overlay that replaces the red wall -->
   <div class="red-overlay" id="redOverlay">rude..</div>
 
   <script>
@@ -181,7 +198,20 @@
       "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXhhM3M1YXpxY3hoMm4ybXdxMWhmMHhoZ295ZGp0dGhsNnZvYjhqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Rgcvb54ffxAc/giphy.gif"
     ];
 
-    // Create audio element for meow
+    // Fullscreen cat background slideshow variables
+    const catBackground = document.getElementById('catBackground');
+    let currentIndex = 0;
+
+    function showNextCat() {
+      catBackground.style.backgroundImage = `url(${catGifs[currentIndex]})`;
+      currentIndex = (currentIndex + 1) % catGifs.length;
+    }
+
+    // Start slideshow
+    showNextCat();
+    setInterval(showNextCat, 5000); // Change every 5 seconds
+
+    // Create floating small cats on screen with meow sound on click
     const meowAudio = new Audio('https://www.soundjay.com/animal/cat-meow-1.mp3');
 
     catGifs.forEach((url) => {
@@ -195,7 +225,6 @@
       cat.style.left = posX + "px";
       cat.style.top = posY + "px";
 
-      // Play meow on click
       cat.addEventListener('click', () => {
         meowAudio.currentTime = 0;
         meowAudio.play();
@@ -204,6 +233,7 @@
       document.body.appendChild(cat);
     });
 
+    // No button logic
     const noBtn = document.getElementById('noBtn');
     const redOverlay = document.getElementById('redOverlay');
     const noMessages = [
@@ -221,7 +251,6 @@
     let clickCount = 0;
 
     noBtn.addEventListener('click', () => {
-      // Move button to random place on screen
       const btnWidth = noBtn.offsetWidth;
       const btnHeight = noBtn.offsetHeight;
 
@@ -233,16 +262,18 @@
 
       noBtn.style.transform = `translate(${newX - noBtn.offsetLeft}px, ${newY - noBtn.offsetTop}px)`;
 
-      // Show overlay with message & shake
+      // Show message immediately, with shake animation
       const message = noMessages[clickCount % noMessages.length];
       redOverlay.textContent = message;
       redOverlay.style.display = 'flex';
       redOverlay.style.animation = 'shake 0.5s';
 
+      // Remove animation on end so it can be retriggered next time
       redOverlay.addEventListener('animationend', () => {
         redOverlay.style.animation = '';
       }, { once: true });
 
+      // Hide message after 5 seconds
       setTimeout(() => {
         redOverlay.style.display = 'none';
       }, 5000);
