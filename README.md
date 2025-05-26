@@ -56,23 +56,31 @@
       left: 60%;
     }
 
-    .crack-overlay {
+    /* New Glass Shatter Styles */
+
+    .glass-shatter-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('https://i.imgur.com/0x7KxZf.png') center center no-repeat;
-      background-size: cover;
-      z-index: 10;
-      animation: crackFade 1.2s ease-out forwards;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       pointer-events: none;
+      z-index: 100;
+      backdrop-filter: brightness(0.6) blur(1.5px);
     }
 
-    @keyframes crackFade {
-      0% { opacity: 0; transform: scale(1.5); }
-      50% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; }
+    .shard {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: url('https://i.imgur.com/0x7KxZf.png') no-repeat center/contain;
+      opacity: 1;
+      animation: shardFly 1s forwards;
+    }
+
+    @keyframes shardFly {
+      to {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) rotate(var(--rot));
+      }
     }
 
     #videoContainer {
@@ -120,10 +128,17 @@
   <!-- Floating Cat GIFs -->
   <script>
     const catGifs = [
-      "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
-      "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
-      "https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif",
-      "https://media.giphy.com/media/l1J9urFG4lFQK0pTO/giphy.gif"
+      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjFlc2hjdnR1MzRncHd5aW1ueG1lczdqbWJjdTl1Nzh1aHN4c3hyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xI1pK446iNJeg/giphy.gif",
+      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXdqY3k4bTh4aDFza2JyMzB0ZW0wZTJ0NXoyd3JvMmlhNm5sMDVyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GxN4ics7OlvsA/giphy.gif",
+      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWk1cnY3MGNjcHhjNmhzaWgzMDRuN2drbGZoenh1Z2J6NDluMDZqZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NimEavznszKtW/giphy.gif",
+      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVndXI3M2ttbTVzaTkxbzRzYXA0NTFxM3dia2ExdG1scnBoeXNrZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NfzERYyiWcXU4/giphy.gif",
+      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3QzdTE0b3E1bnoydzFremdkM3JlYnFjaWhnMDh1YmVqajltOGJjOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/12bjQ7uASAaCKk/giphy.gif",
+      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDl1NHA0a2tiOTF1aGY3YmMyZWFuY29mdjdxYjhra3Z0d2wycnV4diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dRcMsUUrnR8He/giphy.gif",
+      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdnOGV1NzNtZW9xcXFwcHR5MWd6cDdnb25ha2g3Nmk1YTJpNG1ldyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bJJJODH3T9Fug/giphy.gif",
+      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFrOTQ0dnozMTJma2Z2eHBjOXk5azc0bDd3bmJpbGM5MDhpMjQ0eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pV0RpkmUZ5UB2/giphy.gif",
+      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3gyZnptaW1lM24yaTN6NGw4czJ6eWJjOHl6cWY4NDdvMDFsajJobiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/amCh2vTHXpQyI/giphy.gif",
+      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXhhM3M1YXpxY3hoMm4ybXdxMWhmMHhoZ295ZGp0dGhsNnZvYjhqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Rgcvb54ffxAc/giphy.gif"
+      
     ];
 
     for (let i = 0; i < 5; i++) {
@@ -168,10 +183,38 @@
       clickCount++;
     });
 
+    function createShatter() {
+      const container = document.createElement('div');
+      container.className = 'glass-shatter-container';
+
+      const shardCount = 8;
+      for(let i = 0; i < shardCount; i++) {
+        const shard = document.createElement('div');
+        shard.className = 'shard';
+
+        shard.style.top = (window.innerHeight / 2 + (Math.random() * 100 - 50)) + 'px';
+        shard.style.left = (window.innerWidth / 2 + (Math.random() * 100 - 50)) + 'px';
+
+        const x = (Math.random() * 600 - 300) + 'px';
+        const y = (Math.random() * 600 - 300) + 'px';
+        const rot = (Math.random() * 720 - 360) + 'deg';
+
+        shard.style.setProperty('--x', x);
+        shard.style.setProperty('--y', y);
+        shard.style.setProperty('--rot', rot);
+
+        shard.style.animationDelay = (i * 0.1) + 's';
+
+        container.appendChild(shard);
+      }
+
+      document.body.appendChild(container);
+
+      setTimeout(() => container.remove(), 1200);
+    }
+
     function yesClicked() {
-      const crack = document.createElement('div');
-      crack.classList.add('crack-overlay');
-      document.body.appendChild(crack);
+      createShatter();
 
       setTimeout(() => {
         document.getElementById('card').style.display = 'none';
