@@ -100,11 +100,11 @@
 </head>
 <body>
   <div class="card" id="card">
-    <h1>Hey [Their Name],</h1>
-    <p>I was wondering... would you go out with me? 💕</p>
+    <h1>heylol,</h1>
+    <p>we should like be together unplatonically..</p>
     <div class="buttons">
-      <button class="yes" onclick="yesClicked()">Yes 💖</button>
-      <button class="no" id="noBtn">No 😢</button>
+      <button class="yes" onclick="yesClicked()">YES</button>
+      <button class="no" id="noBtn">no</button>
     </div>
   </div>
 
