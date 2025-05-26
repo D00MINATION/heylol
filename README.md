@@ -172,7 +172,7 @@
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe src="https://youtube.com/shorts/ZTAGGyyqzUI?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
   <div class="red-overlay" id="redOverlay"></div>
@@ -202,7 +202,7 @@
     showNextCat();
     setInterval(showNextCat, 5000);
 
-    const meowAudio = new Audio('https://www.soundjay.com/animal/cat-meow-1.mp3');
+    const meowAudio = new Audio('https://www.dropbox.com/scl/fi/elhkh3jlikp2vsixi634n/cat-meow-14536.mp3?rlkey=ig1qswq3zr3y4sot9z71u7rlq&st=xn3swuv7&dl=0');
 
     catGifs.forEach((url) => {
       const cat = document.createElement("img");
