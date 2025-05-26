@@ -70,36 +70,34 @@
       position: relative;
       z-index: 5;
     }
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  z-index: 6;
+}
 
-    .buttons {
-      margin-top: 30px;
-      position: relative;
-      height: 100px;
-      z-index: 6;
-    }
+button {
+  font-family: 'Old Newspaper Types', serif;
+  font-size: 1.5em;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: relative;
+}
 
-    button {
-      font-family: 'Old Newspaper Types', serif;
-      font-size: 1.5em;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      position: absolute;
-      top: 20px;
-      transition: transform 0.3s ease;
-    }
+.yes {
+  background-color: #32cd32;
+  color: white;
+}
 
-    .yes {
-      background-color: #32cd32;
-      color: white;
-      left: 25%;
-    }
-
-    .no {
-      background-color: #dc143c;
-      color: white;
-      left: 55%;
+.no {
+  background-color: #dc143c;
+  color: white;
+}
     }
 
     #videoContainer {
