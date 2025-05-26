@@ -44,17 +44,7 @@
       border-radius: 15px;
       max-width: 600px;
       margin: 0 auto;
-    }
-
-    .card {
-      background: rgba(26, 26, 26, 0.85);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-      padding: 40px;
-      max-width: 600px;
-      margin: 100px auto;
-      position: relative;
-      z-index: 5;
+  
     }
 
     h1 {
