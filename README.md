@@ -172,11 +172,11 @@
   </div>
 
   <div id="videoContainer">
-    <video id="romanticVideo" autoplay controls style="width: 100%; height: 100%;">
-  <source src="https://www.dl.dropboxusercontent.com/scl/fi/r68w4rarovot2s0vd9yv5/somedays.mp4?rlkey=0l6hmefnsvg1j5dwbzbd3sm8h&st=7181acqr&raw=1" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-  </div>
+  <video id="loveVideo" autoplay controls style="width: 100%; height: 100%;" playsinline>
+    <source src="https://www.dropbox.com/scl/fi/r68w4rarovot2s0vd9yv5/somedays.mp4?rlkey=0l6hmefnsvg1j5dwbzbd3sm8h&raw=1" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
   <div class="red-overlay" id="redOverlay"></div>
 
