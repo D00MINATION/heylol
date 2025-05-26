@@ -17,7 +17,6 @@
       z-index: 0;
     }
 
-    /* Rainbow animation */
     @keyframes rainbow {
       0% { color: red; }
       14% { color: orange; }
@@ -29,12 +28,14 @@
       100% { color: red; }
     }
 
-    h1 {
+    #bouncingText {
+      position: absolute;
       font-size: 2.5em;
       animation: rainbow 5s infinite;
+      z-index: 10;
+      user-select: none;
     }
 
-    /* Fullscreen cat gif background slideshow */
     #catBackground {
       position: fixed;
       top: 0; left: 0;
@@ -64,10 +65,6 @@
     }
 
     .card {
-      background: rgba(26, 26, 26, 0.85);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-      padding: 40px;
       max-width: 600px;
       margin: 100px auto;
       position: relative;
@@ -94,13 +91,13 @@
     }
 
     .yes {
-      background-color: #32cd32; /* green */
+      background-color: #32cd32;
       color: white;
       left: 25%;
     }
 
     .no {
-      background-color: #dc143c; /* red */
+      background-color: #dc143c;
       color: white;
       left: 55%;
     }
@@ -141,13 +138,12 @@
       background-size: cover;
       color: red;
       font-size: 2em;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
       z-index: 100;
       user-select: none;
       text-shadow: 1px 1px 4px black;
-      display: none;
       flex-direction: column;
       padding: 20px;
       text-align: center;
@@ -160,20 +156,19 @@
 
   <div id="catBackground"></div>
 
+  <div id="bouncingText">heylol, we should like be together unplatonically..</div>
+
   <div class="card" id="card">
-    <h1>heylol, we should like be together unplatonically..</h1>
-
     <div class="questionnaire-bg"></div>
-
     <div class="buttons">
       <button class="yes" onclick="yesClicked()">YES</button>
       <button class="no" id="noBtn">NO</button>
     </div>
   </div>
 
- <div id="videoContainer">
-  <iframe src="https://streamable.com/e/ct9xuk" frameborder="0" allowfullscreen style="width: 100%; height: 100%;"></iframe>
-</div>
+  <div id="videoContainer">
+    <iframe src="https://streamable.com/e/ct9xuk" frameborder="0" allowfullscreen></iframe>
+  </div>
 
   <div class="red-overlay" id="redOverlay"></div>
 
@@ -251,6 +246,31 @@
       document.getElementById('card').style.display = 'none';
       document.getElementById('videoContainer').style.display = 'block';
     }
+
+    // Bouncing DVD-style animation
+    const bounceText = document.getElementById("bouncingText");
+    let dx = 2;
+    let dy = 2;
+    let x = 100;
+    let y = 100;
+
+    function moveText() {
+      const box = bounceText.getBoundingClientRect();
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      if (x + box.width >= width || x <= 0) dx = -dx;
+      if (y + box.height >= height || y <= 0) dy = -dy;
+
+      x += dx;
+      y += dy;
+
+      bounceText.style.left = x + "px";
+      bounceText.style.top = y + "px";
+      requestAnimationFrame(moveText);
+    }
+
+    moveText();
   </script>
 </body>
 </html>
