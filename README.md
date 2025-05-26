@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hey [Their Name] 😊</title>
+  <title>heylol</title>
   <style>
     body {
       margin: 0;
@@ -20,7 +20,7 @@
       max-width: 600px;
       margin: 100px auto;
       position: relative;
-      z-index: 1;
+      z-index: 5;
     }
 
     h1 {
@@ -56,31 +56,23 @@
       left: 60%;
     }
 
-    .glass-shatter {
+    .crack-overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, #ffffff22 1%, transparent 70%);
+      width: 100vw;
+      height: 100vh;
+      background: url('https://i.imgur.com/0x7KxZf.png') center center no-repeat;
+      background-size: cover;
       z-index: 10;
-      animation: shatter 0.8s forwards;
+      animation: crackFade 1.2s ease-out forwards;
       pointer-events: none;
     }
 
-    @keyframes shatter {
-      0% {
-        opacity: 0;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(0.1);
-      }
+    @keyframes crackFade {
+      0% { opacity: 0; transform: scale(1.5); }
+      50% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; }
     }
 
     #videoContainer {
@@ -95,6 +87,19 @@
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    .cat {
+      position: fixed;
+      width: 80px;
+      animation: float 5s infinite ease-in-out;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
     }
   </style>
 </head>
@@ -111,6 +116,30 @@
   <div id="videoContainer">
     <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
+
+  <!-- Floating Cat GIFs -->
+  <script>
+    const catGifs = [
+      "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
+      "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+      "https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif",
+      "https://media.giphy.com/media/l1J9urFG4lFQK0pTO/giphy.gif"
+    ];
+
+    for (let i = 0; i < 5; i++) {
+      const cat = document.createElement("img");
+      cat.src = catGifs[i % catGifs.length];
+      cat.className = "cat";
+
+      const posX = Math.random() * window.innerWidth;
+      const posY = Math.random() * (window.innerHeight - 200) + 50;
+
+      cat.style.left = posX + "px";
+      cat.style.top = posY + "px";
+
+      document.body.appendChild(cat);
+    }
+  </script>
 
   <script>
     const noBtn = document.getElementById('noBtn');
@@ -140,14 +169,14 @@
     });
 
     function yesClicked() {
-      const shatter = document.createElement('div');
-      shatter.classList.add('glass-shatter');
-      document.body.appendChild(shatter);
+      const crack = document.createElement('div');
+      crack.classList.add('crack-overlay');
+      document.body.appendChild(crack);
 
       setTimeout(() => {
         document.getElementById('card').style.display = 'none';
         document.getElementById('videoContainer').style.display = 'block';
-      }, 800);
+      }, 1200);
     }
   </script>
 </body>
