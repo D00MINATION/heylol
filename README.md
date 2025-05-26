@@ -16,20 +16,6 @@
       z-index: 0;
     }
 
-    /* Fullscreen cat gif background slideshow */
-    #catBackground {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      filter: brightness(0.7);
-    }
-
     /* Questionnaire background behind yes/no buttons */
     .questionnaire-bg {
       position: absolute;
@@ -44,7 +30,17 @@
       border-radius: 15px;
       max-width: 600px;
       margin: 0 auto;
-  
+    }
+
+    .card {
+      background: rgba(26, 26, 26, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      max-width: 600px;
+      margin: 100px auto;
+      position: relative;
+      z-index: 5;
     }
 
     h1 {
@@ -59,15 +55,17 @@
       z-index: 6;
     }
 
-    /* Hide default buttons */
+    /* Style buttons: bigger & transparent */
     button {
       border: none;
       background: none;
+      background-color: transparent;
+      box-shadow: none;
       cursor: pointer;
       position: absolute;
       transition: transform 0.3s ease;
-      width: 150px; /* bigger */
-      height: 75px; /* bigger */
+      width: 180px;
+      height: 90px;
       padding: 0;
     }
 
@@ -78,6 +76,7 @@
       object-fit: contain;
       pointer-events: none;
       user-select: none;
+      background-color: transparent;
     }
 
     .yes {
@@ -127,34 +126,25 @@
       80% { transform: translate(10px, -5px) rotate(5deg); }
     }
 
-    /* Red overlay with background image and message */
     .red-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background: url('https://www.dropbox.com/scl/fi/dq43zxv8nd35mu0d2ayie/ja.jpg?rlkey=kb0r3edgs8mospwye8379a9tw&st=nl2scune&dl=1') no-repeat center center;
+      background: url('https://dl.dropboxusercontent.com/s/dq43zxv8nd35mu0d2ayie/ja.jpg?dl=0') no-repeat center center;
       background-size: cover;
-      color: red;
+      color: black;
       font-size: 2em;
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 100;
-      user-select: none;
-      text-shadow: 1px 1px 4px black;
       display: none;
-      flex-direction: column;
-      padding: 20px;
-      text-align: center;
-      font-weight: bold;
+      user-select: none;
+      text-shadow: 1px 1px 2px white;
     }
   </style>
 </head>
 <body>
-
-  <!-- Fullscreen cat gif background slideshow -->
-  <div id="catBackground"></div>
-
   <div class="card" id="card">
     <h1>heylol,</h1>
     <p>we should like be together unplatonically..</p>
@@ -164,50 +154,37 @@
 
     <div class="buttons">
       <button class="yes" onclick="yesClicked()">
-        <img src="https://i.ibb.co/mFFxfTmQ/yes.png" alt="Yes Button"/>
+        <img src="https://www.dropbox.com/scl/fi/e02jjrs99hczwqe6y0ztp/yes.png?rlkey=drwjuaxhzppjiw4pr31zw3ob8&st=fvzqqes9&dl=1" alt="Yes Button"/>
       </button>
       <button class="no" id="noBtn">
-        <img src="https://i.ibb.co/KjZKLkyg/no.png" alt="No Button"/>
+        <img src="https://www.dropbox.com/scl/fi/uko3m164r6uwzic8w5h2y/no.png?rlkey=w4q01c1czp3v2ifi07q6qsfx3&st=0h41kaeb&dl=1" alt="No Button"/>
       </button>
     </div>
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/IHQ3OhddNhw?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <!-- Red overlay that appears on No click -->
-  <div class="red-overlay" id="redOverlay"></div>
+  <!-- Overlay that replaces the red wall -->
+  <div class="red-overlay" id="redOverlay">rude..</div>
 
   <script>
     const catGifs = [
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjFlc2hjdnR1MzRncHd5aW1ueG1lczdqbWJjdTl1Nzh1aHN4c3hyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xI1pK446iNJeg/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXdqY3k4bTh4aDFza2JyMzB0ZW0wZTJ0NXoyd3JvMmlhNm5sMDVyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GxN4ics7OlvsA/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWk1cnY3MGNjcHhjNmhzaWgzMDRuN2drbGZoenh1Z2J6NDluMDZqZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NimEavznszKtW/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVndXI3M2ttbTVzaTkxbzRzYXA0NTFxM3dia2ExdG1scnBoeXNrZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NfzERYyiWcXU4/giphy.gif",
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3QzdTE0b3E1bnoydzFremdkM3JlYnFjaWhnMDh1YmVqajltOGJjOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/12bjQ7uASAaCKk/giphy.gif",
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDl1NHA0a2tiOTF1aGY3YmMyZWFuY29mdjdxYjhra3Z0d2wycnV4diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dRcMsUUrnR8He/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdnOGV1NzNtZW9xcXFwcHR5MWd6cDdnb25ha2g3Nmk1YTJpNG1ldyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bJJJODH3T9Fug/giphy.gif",
-      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFrOTQ0dnozMTJma2Z2eHBjOXk5azc0bDd3bmJpbGM5MDhpMjQ0eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pV0RpkmUZ5UB2/giphy.gif",
-      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3gyZnptaW1lM24yaTN6NGw4czJ6eWJjOHl6cWY4NDdvMDFsajJobiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/amCh2vTHXpQyI/giphy.gif",
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXhhM3M1YXpxY3hoMm4ybXdxMWhmMHhoZ295ZGp0dGhsNnZvYjhqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Rgcvb54ffxAc/giphy.gif"
+      "https://media2.giphy.com/media/xI1pK446iNJeg/giphy.gif",
+      "https://media4.giphy.com/media/GxN4ics7OlvsA/giphy.gif",
+      "https://media4.giphy.com/media/NimEavznszKtW/giphy.gif",
+      "https://media2.giphy.com/media/NfzERYyiWcXU4/giphy.gif",
+      "https://media1.giphy.com/media/12bjQ7uASAaCKk/giphy.gif",
+      "https://media1.giphy.com/media/dRcMsUUrnR8He/giphy.gif",
+      "https://media2.giphy.com/media/bJJJODH3T9Fug/giphy.gif",
+      "https://media4.giphy.com/media/pV0RpkmUZ5UB2/giphy.gif",
+      "https://media3.giphy.com/media/amCh2vTHXpQyI/giphy.gif",
+      "https://media2.giphy.com/media/13Rgcvb54ffxAc/giphy.gif"
     ];
 
-    // Fullscreen cat background slideshow variables
-    const catBackground = document.getElementById('catBackground');
-    let currentIndex = 0;
-
-    function showNextCat() {
-      catBackground.style.backgroundImage = `url(${catGifs[currentIndex]})`;
-      currentIndex = (currentIndex + 1) % catGifs.length;
-    }
-
-    // Start slideshow
-    showNextCat();
-    setInterval(showNextCat, 5000); // Change every 5 seconds
-
-    // Create floating small cats on screen with meow sound on click
-    const meowAudio = new Audio('https://www.soundjay.com/animal/cat-meow-1.mp3');
+    // Cat meow audio from Pixabay (direct mp3 link)
+    const meowAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_58b7f866a0.mp3?filename=cat-meow-14536.mp3");
 
     catGifs.forEach((url) => {
       const cat = document.createElement("img");
@@ -228,7 +205,6 @@
       document.body.appendChild(cat);
     });
 
-    // No button logic
     const noBtn = document.getElementById('noBtn');
     const redOverlay = document.getElementById('redOverlay');
     const noMessages = [
@@ -243,19 +219,34 @@
       "bach jao",
       "rude.."
     ];
+    let clickCount = 0;
 
     noBtn.addEventListener('click', () => {
-      // Show overlay with image and random red message
-      const randomIndex = Math.floor(Math.random() * noMessages.length);
-      const message = noMessages[randomIndex];
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
 
+      const maxX = window.innerWidth - btnWidth;
+      const maxY = window.innerHeight - btnHeight;
+
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+
+      noBtn.style.transform = `translate(${newX - noBtn.offsetLeft}px, ${newY - noBtn.offsetTop}px)`;
+
+      const message = noMessages[clickCount % noMessages.length];
       redOverlay.textContent = message;
       redOverlay.style.display = 'flex';
+      redOverlay.style.animation = 'shake 0.5s';
 
-      // Remove overlay after 5 seconds
+      redOverlay.addEventListener('animationend', () => {
+        redOverlay.style.animation = '';
+      }, { once: true });
+
       setTimeout(() => {
         redOverlay.style.display = 'none';
-      }, 5000);
+      }, 500);  // shorter so message and animation sync better
+
+      clickCount++;
     });
 
     function yesClicked() {
