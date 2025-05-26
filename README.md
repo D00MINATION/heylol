@@ -171,11 +171,8 @@
     </div>
   </div>
 
-  <div id="videoContainer">
-  <video id="loveVideo" autoplay controls style="width: 100%; height: 100%;" playsinline>
-    <source src="https://www.dropbox.com/scl/fi/r68w4rarovot2s0vd9yv5/somedays.mp4?rlkey=0l6hmefnsvg1j5dwbzbd3sm8h&raw=1" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+ <div id="videoContainer">
+  <iframe src="https://streamable.com/e/ct9xuk" frameborder="0" allowfullscreen style="width: 100%; height: 100%;"></iframe>
 </div>
 
   <div class="red-overlay" id="redOverlay"></div>
