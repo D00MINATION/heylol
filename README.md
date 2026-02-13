@@ -55,7 +55,7 @@
       left: 0;
       right: 0;
       height: 180px;
-      background: url('https://dl.dropboxusercontent.com/s/me8s6ds3k6ouixylctwv6/WhatsApp-Image-2025-05-07-at-23.29.15_aa5cb6f4.jpg?dl=0') no-repeat center center;
+      background: url('https://www.dropbox.com/scl/fi/exrhhdu9sxtqc01i9kndg/7568db94-ac22-4e82-8bde-9fe5e2836d32.jpg?rlkey=tgwj8mvegqxdg2m9wqay86oe0&st=ydfvgyt9&dl=0?dl=0') no-repeat center center;
       background-size: cover;
       z-index: 4;
       filter: brightness(0.75);
