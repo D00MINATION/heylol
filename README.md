@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>heylol</title>
+  <title>ples be my valentine</title>
   <link href="https://fonts.googleapis.com/css2?family=Old+Newspaper+Types&display=swap" rel="stylesheet">
   <style>
     body {
@@ -156,7 +156,7 @@
 
   <div id="catBackground"></div>
 
-  <div id="bouncingText">heylol, we should like be together unplatonically..</div>
+  <div id="bouncingText">ples be my valentine</div>
 
   <div class="card" id="card">
     <div class="questionnaire-bg"></div>
@@ -174,9 +174,9 @@
 
   <script>
     const catGifs = [
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjFlc2hjdnR1MzRncHd5aW1ueG1lczdqbWJjdTl1Nzh1aHN4c3hyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xI1pK446iNJeg/giphy.gif",
-      "https://media4.giphy.com/media/GxN4ics7OlvsA/giphy.gif",
-      "https://media4.giphy.com/media/NimEavznszKtW/giphy.gif",
+      "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
+      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
+      "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
       "https://media2.giphy.com/media/NfzERYyiWcXU4/giphy.gif",
       "https://media1.giphy.com/media/12bjQ7uASAaCKk/giphy.gif",
       "https://media1.giphy.com/media/dRcMsUUrnR8He/giphy.gif",
