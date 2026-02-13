@@ -55,7 +55,7 @@
       left: 0;
       right: 0;
       height: 180px;
-      background: url('https://www.dropbox.com/scl/fi/exrhhdu9sxtqc01i9kndg/7568db94-ac22-4e82-8bde-9fe5e2836d32.jpg?rlkey=tgwj8mvegqxdg2m9wqay86oe0&st=ydfvgyt9&dl=0?dl=0') no-repeat center center;
+      background: url('https://www.dropbox.com/scl/fi/exrhhdu9sxtqc01i9kndg/7568db94-ac22-4e82-8bde-9fe5e2836d32.jpg?rlkey=tgwj8mvegqxdg2m9wqay86oe0&st=ydfvgyt9&dl=0') no-repeat center center;
       background-size: cover;
       z-index: 4;
       filter: brightness(0.75);
@@ -134,7 +134,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background: url('https://www.dropbox.com/scl/fi/dq43zxv8nd35mu0d2ayie/ja.jpg?rlkey=kb0r3edgs8mospwye8379a9tw&st=nl2scune&dl=1') no-repeat center center;
+      background: url('https://www.dropbox.com/scl/fi/exrhhdu9sxtqc01i9kndg/7568db94-ac22-4e82-8bde-9fe5e2836d32.jpg?rlkey=tgwj8mvegqxdg2m9wqay86oe0&st=ydfvgyt9&dl=0') no-repeat center center;
       background-size: cover;
       color: red;
       font-size: 2em;
