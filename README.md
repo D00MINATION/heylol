@@ -167,7 +167,7 @@
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://streamable.com/qb7i8k" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://streamable.com/e/qb7i8k" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <div class="red-overlay" id="redOverlay"></div>
