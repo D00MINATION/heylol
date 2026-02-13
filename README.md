@@ -167,7 +167,7 @@
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://streamable.com/e/ct9xuk" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://streamable.com/qb7i8k" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <div class="red-overlay" id="redOverlay"></div>
@@ -177,13 +177,13 @@
       "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
       "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
       "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
-      "https://media2.giphy.com/media/NfzERYyiWcXU4/giphy.gif",
-      "https://media1.giphy.com/media/12bjQ7uASAaCKk/giphy.gif",
-      "https://media1.giphy.com/media/dRcMsUUrnR8He/giphy.gif",
-      "https://media2.giphy.com/media/bJJJODH3T9Fug/giphy.gif",
-      "https://media4.giphy.com/media/pV0RpkmUZ5UB2/giphy.gif",
-      "https://media3.giphy.com/media/amCh2vTHXpQyI/giphy.gif",
-      "https://media2.giphy.com/media/13Rgcvb54ffxAc/giphy.gif"
+      "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
+      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
+      "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
+      "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
+      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
+      "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
+      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif"
     ];
 
     const catBackground = document.getElementById('catBackground');
@@ -221,16 +221,16 @@
     const noBtn = document.getElementById('noBtn');
     const redOverlay = document.getElementById('redOverlay');
     const noMessages = [
-      "ur not supposed to pick this one",
-      "NUHUH PRESS YES",
-      "o hello",
+      "u are NOT not supposed to pick this one",
+      "PRESS YES",
+      "oye",
       "the yes button is actually the no button like justsayinglike yknow",
       "yes dubao..",
-      "OYE",
-      "????",
+      ".....",
+      "?",
       "PRESSYES",
-      "bach jao",
-      "rude.."
+      "yeo press yes",
+      "yes button right there.."
     ];
 
     noBtn.addEventListener('click', () => {
