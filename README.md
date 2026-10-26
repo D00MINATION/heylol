@@ -115,8 +115,8 @@
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
       z-index: 100;
       justify-content: center;
       align-items: center;
@@ -129,7 +129,7 @@
     }
 
     .embed-card {
-      background: rgba(15, 15, 15, 0.95);
+      background: rgba(20, 20, 20, 0.95);
       border: 2px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
       padding: 24px;
@@ -188,17 +188,12 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-      background: #000;
-      position: relative;
     }
 
     .video-wrapper iframe {
       width: 100%;
       height: 100%;
-      border: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
+      border: none;
     }
 
     .cat {
@@ -237,9 +232,143 @@
         <button class="close-btn" onclick="closeEmbedModal()">✕</button>
       </div>
       <div class="video-wrapper">
-        <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <!-- Using the /e/ embed route for clean playback without website banners -->
+        <iframe id="videoIframe" src="https://streamable.com/khscec?autoplay=1" allow="autoplay" allowfullscreen></iframe>
       </div>
     </div>
   </div>
 
   <script>
+    const catGifs = [
+      "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
+      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
+      "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
+      "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
+      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
+      "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
+      "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
+      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif"
+    ];
+
+    const catBackground = document.getElementById('catBackground');
+    let currentIndex = 0;
+
+    function showNextCat() {
+      catBackground.style.backgroundImage = `url(${catGifs[currentIndex]})`;
+      currentIndex = (currentIndex + 1) % catGifs.length;
+    }
+
+    showNextCat();
+    setInterval(showNextCat, 5000);
+
+    const meowAudio = new Audio('https://www.dl.dropboxusercontent.com/scl/fi/elhkh3jlikp2vsixi634n/cat-meow-14536.mp3?rlkey=ig1qswq3zr3y4sot9z71u7rlq&raw=1');
+
+    catGifs.forEach((url) => {
+      const cat = document.createElement("img");
+      cat.src = url;
+      cat.className = "cat";
+
+      const posX = Math.random() * (window.innerWidth - 120);
+      const posY = Math.random() * (window.innerHeight - 200) + 50;
+
+      cat.style.left = posX + "px";
+      cat.style.top = posY + "px";
+
+      cat.addEventListener('click', () => {
+        meowAudio.currentTime = 0;
+        meowAudio.play().catch(() => {});
+      });
+
+      document.body.appendChild(cat);
+    });
+
+    // Teleportation Logic
+    const clickBtn = document.getElementById('clickBtn');
+    let attempts = 0;
+    const maxAttempts = 4; // Teleports 4 times before action
+
+    function teleportButton() {
+      if (attempts < maxAttempts) {
+        attempts++;
+        const btnWidth = clickBtn.offsetWidth || 150;
+        const btnHeight = clickBtn.offsetHeight || 50;
+        const padding = 80;
+
+        const maxX = window.innerWidth - btnWidth - padding;
+        const maxY = window.innerHeight - btnHeight - padding;
+
+        const newX = Math.max(padding, Math.floor(Math.random() * maxX));
+        const newY = Math.max(padding, Math.floor(Math.random() * maxY));
+        
+        clickBtn.style.left = newX + 'px';
+        clickBtn.style.top = newY + 'px';
+        clickBtn.style.transform = 'none';
+
+        if (attempts === maxAttempts) {
+          clickBtn.textContent = "my fault big dawg ill let u click me now ❤️";
+          clickBtn.style.backgroundColor = "#ff1493";
+        }
+      } else {
+        openEmbedModal();
+      }
+    }
+
+    clickBtn.addEventListener('mouseover', () => {
+      if (attempts < maxAttempts) {
+        teleportButton();
+      }
+    });
+
+    clickBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      teleportButton();
+    });
+
+    // Embed Modal Animation functions
+    const embedModal = document.getElementById('embedModal');
+
+    function openEmbedModal() {
+      // Option A: Clean embed popup modal (active by default)
+      embedModal.classList.add('active');
+
+      // Option B: If you prefer opening Streamable in a new browser tab directly instead, uncomment the line below:
+      // window.open('https://streamable.com/khscec', '_blank');
+    }
+
+    function closeEmbedModal() {
+      embedModal.classList.remove('active');
+    }
+
+    function handleModalBgClick(e) {
+      if (e.target === embedModal) {
+        closeEmbedModal();
+      }
+    }
+
+    // Bouncing DVD-style text animation
+    const bounceText = document.getElementById("bouncingText");
+    let dx = 2;
+    let dy = 2;
+    let x = 100;
+    let y = 100;
+
+    function moveText() {
+      const box = bounceText.getBoundingClientRect();
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      if (x + box.width >= width || x <= 0) dx = -dx;
+      if (y + box.height >= height || y <= 0) dy = -dy;
+
+      x += dx;
+      y += dy;
+
+      bounceText.style.left = x + "px";
+      bounceText.style.top = y + "px";
+      requestAnimationFrame(moveText);
+    }
+
+    moveText();
+  </script>
+</body>
+</html>
