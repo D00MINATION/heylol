@@ -233,7 +233,7 @@
       </div>
       <div class="video-wrapper">
         <!-- Using the /e/ embed route for clean playback without website banners -->
-        <iframe id="videoIframe" src="https://streamable.com/khscec?autoplay=1" allow="autoplay" allowfullscreen></iframe>
+        <iframe id="videoIframe" src="https://streamable.com/e/khscec?autoplay=1" allow="autoplay" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -332,7 +332,7 @@
       embedModal.classList.add('active');
 
       // Option B: If you prefer opening Streamable in a new browser tab directly instead, uncomment the line below:
-      // window.open('https://streamable.com/khscec', '_blank');
+      // window.open('https://streamable.com/e/khscec', '_blank');
     }
 
     function closeEmbedModal() {
