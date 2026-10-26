@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>i love you zozo</title>
   <link href="https://fonts.googleapis.com/css2?family=Old+Newspaper+Types&display=swap" rel="stylesheet">
   <style>
@@ -34,6 +36,8 @@
       animation: rainbow 5s infinite;
       z-index: 10;
       user-select: none;
+      white-space: nowrap;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
 
     #catBackground {
@@ -55,7 +59,7 @@
       left: 0;
       right: 0;
       height: 180px;
-      background: url('https://www.dropbox.com/scl/fi/exrhhdu9sxtqc01i9kndg/7568db94-ac22-4e82-8bde-9fe5e2836d32.jpg?rlkey=tgwj8mvegqxdg2m9wqay86oe0&st=ydfvgyt9&dl=0') no-repeat center center;
+      background: url('https://www.dropbox.com/scl/fi/wnutm9ghtbylu8wr5j68x/naenase.mp4?rlkey=ne1xdndsbmaqww5vm1cug2bti&st=43v0e60o&dl=0') no-repeat center center;
       background-size: cover;
       z-index: 4;
       filter: brightness(0.75);
@@ -71,14 +75,8 @@
       z-index: 5;
     }
 
-    .buttons {
-      margin-top: 30px;
-      position: relative;
-      height: 100px;
-      z-index: 6;
-    }
-
-    button {
+    /* Interactive button styles */
+    #actionBtn {
       font-family: 'Old Newspaper Types', serif;
       font-size: 1.5em;
       padding: 15px 30px;
@@ -86,20 +84,18 @@
       border-radius: 10px;
       cursor: pointer;
       position: absolute;
-      top: 20px;
-      transition: transform 0.3s ease;
-    }
-
-    .yes {
+      top: 220px;
+      left: 50%;
+      transform: translateX(-50%);
       background-color: #32cd32;
       color: white;
-      left: 25%;
+      transition: top 0.2s ease, left 0.2s ease, transform 0.2s ease;
+      z-index: 15;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
-    .no {
-      background-color: #dc143c;
-      color: white;
-      left: 55%;
+    #actionBtn:hover {
+      filter: brightness(1.1);
     }
 
     #videoContainer {
@@ -108,6 +104,7 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       z-index: 20;
+      background: black;
     }
 
     #videoContainer iframe {
@@ -129,27 +126,6 @@
       50% { transform: translateY(-20px) rotate(5deg); }
       100% { transform: translateY(0) rotate(0deg); }
     }
-
-    .red-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: url('https://www.dropbox.com/scl/fi/exrhhdu9sxtqc01i9kndg/7568db94-ac22-4e82-8bde-9fe5e2836d32.jpg?rlkey=tgwj8mvegqxdg2m9wqay86oe0&st=ydfvgyt9&dl=0') no-repeat center center;
-      background-size: cover;
-      color: red;
-      font-size: 2em;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      user-select: none;
-      text-shadow: 1px 1px 4px black;
-      flex-direction: column;
-      padding: 20px;
-      text-align: center;
-      font-weight: bold;
-      font-family: 'Old Newspaper Types', serif;
-    }
   </style>
 </head>
 <body>
@@ -160,29 +136,27 @@
 
   <div class="card" id="card">
     <div class="questionnaire-bg"></div>
-    <div class="buttons">
-      <button class="yes" onclick="yesClicked()">YES</button>
-    </div>
+    <!-- Single "click me" button -->
+    <button id="actionBtn" onclick="handleButtonClick(event)">click me</button>
   </div>
 
   <div id="videoContainer">
-    <iframe src="https://streamable.com/e/qb7i8k" frameborder="0" allowfullscreen></iframe>
+    <iframe id="videoIframe" src="https://streamable.com/e/qb7i8k" frameborder="0" allowfullscreen></iframe>
   </div>
 
-  <div class="red-overlay" id="redOverlay"></div>
-
   <script>
+    // Configuration & State
+    let attemptCount = 0;
+    const MAX_ATTEMPTS = 4; // Teleports 4 times before staying clickable
+    const FINAL_REDIRECT_URL = "https://streamable.com/e/qb7i8k"; // URL to open or display
+
     const catGifs = [
       "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
       "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
       "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
       "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
       "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
-      "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
-      "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycTloang2NTF2NmY3YmMxYnRsNzllc2NmbTd0cG9wbWttdnpnbXo4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HSCZMUa1ao17h7l5mg/giphy.gif",
-      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif",
-      "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500",
-      "https://i0.wp.com/media1.giphy.com/media/11fIOE3vkIPdIY/giphy.gif"
+      "https://livingoffleesh.com/wp-content/uploads/2017/02/charlie-brown-happy-valentines-cute-greetings-animated-gif-2.gif?w=500"
     ];
 
     const catBackground = document.getElementById('catBackground');
@@ -198,12 +172,13 @@
 
     const meowAudio = new Audio('https://www.dl.dropboxusercontent.com/scl/fi/elhkh3jlikp2vsixi634n/cat-meow-14536.mp3?rlkey=ig1qswq3zr3y4sot9z71u7rlq&raw=1');
 
+    // Spawn floating cats
     catGifs.forEach((url) => {
       const cat = document.createElement("img");
       cat.src = url;
       cat.className = "cat";
 
-      const posX = Math.random() * window.innerWidth;
+      const posX = Math.random() * (window.innerWidth - 120);
       const posY = Math.random() * (window.innerHeight - 200) + 50;
 
       cat.style.left = posX + "px";
@@ -211,42 +186,57 @@
 
       cat.addEventListener('click', () => {
         meowAudio.currentTime = 0;
-        meowAudio.play();
+        meowAudio.play().catch(() => {});
       });
 
       document.body.appendChild(cat);
     });
 
-    const noBtn = document.getElementById('noBtn');
-    const redOverlay = document.getElementById('redOverlay');
-    const noMessages = [
-      "u are NOT not supposed to pick this one",
-      "PRESS YES",
-      "oye",
-      "the yes button is actually the no button like justsayinglike yknow",
-      "yes dubao..",
-      ".....",
-      "?",
-      "PRESSYES",
-      "yeo press yes",
-      "yes button right there.."
-    ];
+    // Teleportation logic for "click me" button
+    const actionBtn = document.getElementById('actionBtn');
 
-    noBtn.addEventListener('click', () => {
-      const message = noMessages[Math.floor(Math.random() * noMessages.length)];
-      redOverlay.textContent = message;
-      redOverlay.style.display = 'flex';
-      setTimeout(() => {
-        redOverlay.style.display = 'none';
-      }, 5000);
-    });
+    function teleportButton() {
+      const btnWidth = actionBtn.offsetWidth || 150;
+      const btnHeight = actionBtn.offsetHeight || 50;
 
-    function yesClicked() {
-      document.getElementById('card').style.display = 'none';
-      document.getElementById('videoContainer').style.display = 'block';
+      const maxX = window.innerWidth - btnWidth - 20;
+      const maxY = window.innerHeight - btnHeight - 20;
+
+      const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+
+      // Set fixed positioning so it can move anywhere on screen
+      actionBtn.style.position = 'fixed';
+      actionBtn.style.transform = 'none';
+      actionBtn.style.left = randomX + 'px';
+      actionBtn.style.top = randomY + 'px';
     }
 
-    // Bouncing DVD-style animation
+    // Try teleporting on mouseover if attempts remain
+    actionBtn.addEventListener('mouseenter', () => {
+      if (attemptCount < MAX_ATTEMPTS) {
+        attemptCount++;
+        teleportButton();
+      }
+    });
+
+    function handleButtonClick(e) {
+      if (attemptCount < MAX_ATTEMPTS) {
+        e.preventDefault();
+        attemptCount++;
+        teleportButton();
+      } else {
+        // Trigger video container presentation or redirect
+        document.getElementById('card').style.display = 'none';
+        actionBtn.style.display = 'none';
+        document.getElementById('videoContainer').style.display = 'block';
+        
+        // Optional browser redirect:
+        // window.location.href = FINAL_REDIRECT_URL;
+      }
+    }
+
+    // DVD Bouncing Text Animation
     const bounceText = document.getElementById("bouncingText");
     let dx = 2;
     let dy = 2;
