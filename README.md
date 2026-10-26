@@ -156,7 +156,7 @@
 
   <div id="catBackground"></div>
 
-  <div id="bouncingText">ples be my valentine</div>
+  <div id="bouncingText">i love you zozo</div>
 
   <div class="card" id="card">
     <div class="questionnaire-bg"></div>
