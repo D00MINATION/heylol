@@ -332,7 +332,7 @@
       embedModal.classList.add('active');
 
       // Option B: If you prefer opening Streamable in a new browser tab directly instead, uncomment the line below:
-      // window.open('https://streamable.com/i3t8v2', '_blank');
+      // window.open('https://streamable.com/khscec', '_blank');
     }
 
     function closeEmbedModal() {
