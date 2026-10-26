@@ -232,7 +232,8 @@
         <button class="close-btn" onclick="closeEmbedModal()">✕</button>
       </div>
       <div class="video-wrapper">
-        <iframe id="videoIframe" src="https://streamable.com/i3t8v2" allowfullscreen></iframe>
+        <!-- Using the /e/ embed route for clean playback without website banners -->
+        <iframe id="videoIframe" src="https://streamable.com/khscec" allow="autoplay" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -284,7 +285,7 @@
     // Teleportation Logic
     const clickBtn = document.getElementById('clickBtn');
     let attempts = 0;
-    const maxAttempts = 4; // Teleports 4 times before opening embed
+    const maxAttempts = 4; // Teleports 4 times before action
 
     function teleportButton() {
       if (attempts < maxAttempts) {
@@ -327,7 +328,11 @@
     const embedModal = document.getElementById('embedModal');
 
     function openEmbedModal() {
+      // Option A: Clean embed popup modal (active by default)
       embedModal.classList.add('active');
+
+      // Option B: If you prefer opening Streamable in a new browser tab directly instead, uncomment the line below:
+      // window.open('https://streamable.com/i3t8v2', '_blank');
     }
 
     function closeEmbedModal() {
