@@ -162,7 +162,6 @@
     <div class="questionnaire-bg"></div>
     <div class="buttons">
       <button class="yes" onclick="yesClicked()">YES</button>
-      <button class="no" id="noBtn">NO</button>
     </div>
   </div>
 
